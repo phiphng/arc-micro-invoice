@@ -1,41 +1,86 @@
-# arc-micro-invoice
+# Micro Invoice
 
-Tiny USDC invoice registry for freelancers.
+> A smart contract built on [Arc Network](https://arc.network) — the first Modular L1 for DeFi, powered by USDC gas.
 
-## Arc Network
+![Solidity](https://img.shields.io/badge/Solidity-%5E0.8.20-363636?logo=solidity)
+![Foundry](https://img.shields.io/badge/Built%20with-Foundry-FFDB1C?logo=ethereum)
+![Arc Network](https://img.shields.io/badge/Chain-Arc%20Testnet-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-- Chain ID: `5042002`
-- RPC: `https://rpc.testnet.arc.network`
-- Explorer: `https://testnet.arcscan.app`
-- Gas/payment asset: USDC-style 6 decimals
+## Overview
 
-## What it does
+This project implements **Micro Invoice** functionality on Arc Network's testnet. Arc uses USDC as native gas token (6 decimals), providing a stable and predictable fee structure for DeFi applications.
 
-This starter dApp provides a compact Arc smart-contract pattern:
+## Architecture
 
-- Create a payment/record intent with payer, receiver, amount, and memo.
-- Settle the record by transferring USDC from the payer to receiver.
-- Emit clean events for indexers, bots, and dashboards.
-- Keep the code minimal for portfolio review and future frontend/agent expansion.
-
-## Project layout
-
-```text
-contracts/src/ArcMicroInvoice.sol
-contracts/src/MockUSDC.sol
-contracts/test/ArcMicroInvoice.t.sol
-contracts/foundry.toml
+```
++-----------------------------------+
+|         Micro Invoice               |
+|                                   |
+|  +-----------+   +------------+   |
+|  |  Access   |   |   Core     |   |
+|  |  Control  |---|   Logic    |   |
+|  +-----------+   +------------+   |
+|         |              |          |
+|  +-----------------------------+  |
+|  |     USDC (6 decimals)       |  |
+|  +-----------------------------+  |
++-----------------------------------+
 ```
 
-## Run tests
+## Contracts
+
+- `src/`
+
+## Quick Start
+
+### Prerequisites
+- [Foundry](https://book.getfoundry.sh/getting-started/installation) installed
+- Arc testnet USDC for gas ([Faucet](https://faucet.arc.network))
+
+### Build and Test
 
 ```bash
-cd contracts
-forge test -vv
+# Install dependencies
+forge install
+
+# Build contracts
+forge build
+
+# Run tests
+forge test -vvv
+
+# Deploy to Arc testnet
+forge script script/Deploy.s.sol --rpc-url https://rpc.testnet.arc.network --broadcast
 ```
 
-## Next steps
+## Network Config
 
-- Add deployment script for Arc testnet.
-- Add viem/Next.js dashboard.
-- Wire Circle/USDC UX copy and demo screenshots.
+| Parameter | Value |
+|-----------|-------|
+| Network   | Arc Testnet |
+| Chain ID  | 5042002 |
+| RPC       | `https://rpc.testnet.arc.network` |
+| Gas Token | USDC (6 decimals) |
+
+## Gas Optimization
+
+- Tight variable packing in storage slots
+- Events for off-chain indexing instead of storage where possible
+- Custom errors instead of revert strings
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Built with love on [Arc Network](https://arc.network)

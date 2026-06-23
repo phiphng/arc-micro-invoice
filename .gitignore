@@ -1,6 +1,29 @@
-.DS_Store
-.env
-out/
+# Compiler output
 cache/
-broadcast/
+out/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies
 node_modules/
+lib/
+
+# Coverage
+lcov.info
+coverage/
+
+# Broadcast
+broadcast/
+
+# Docs
+docs/
